@@ -1,201 +1,199 @@
-Part A: Linux Installation & Verification
-Installed Operating System
-Kali Linux on Virtual Machine (VM)
 
+Part A: Understanding Users
 
-Part B: Basic Navigation Commands
-1. pwd
-Purpose
-pwd command is used to display the current working directory.
-Command
-Bash
-pwd
-Example Output
-Bash
-/home/kali
-
-3. ls
-Purpose
-ls command is used to list files and folders in the current directory.
-Command
-Bash
-ls
-Example Output
-Bash
-Desktop  Documents  Downloads  Pictures
-
-5. ls -la
-Purpose
-ls -la command shows all files including hidden files with detailed information.
-Command
-Bash
-ls -la
-Example Output
-Bash
-drwxr-xr-x  Desktop
-drwxr-xr-x  Downloads
--rw-r--r--  file.txt
-
-7. cd
-Purpose
-cd command is used to change the directory.
-Command
-Bash
-cd Documents
-Example Output
-Bash
-Changed to Documents directory
-
-9. clear
-Purpose
-clear command is used to clear the terminal screen.
-Command
-Bash
-clear
-Example Output
-Bash
-Terminal screen cleared
-
-11. history
-Purpose
-history command displays previously used commands.
-Command
-Bash
-history
-Example Output
-Bash
-1 pwd
-2 ls
-3 cd Documents
-4 clear
-
-13. whoami
-Purpose
-whoami command shows the current logged-in username.
-Command
+Answers
+What is your current username?
+The current username is the logged-in user shown by:
 Bash
 whoami
-Example Output
+Example output:
 Bash
-
-kal
-14. hostname
-Purpose
-hostname command displays the system hostname.
-Command
-Bash
-hostname
-Example Output
-Bash
-kali-linux
-
-
-Part C: Directory Management
-Commands
-Bash
-mkdir CyberSecurity_Lab
-cd CyberSecurity_Lab
-
-mkdir Networking
-mkdir Linux
-mkdir CyberSecurity
-mkdir EthicalHacking
-mkdir Reports
-
-tree
-Output
-Bash
-CyberSecurity_Lab
-├── Networking
-├── Linux
-├── CyberSecurity
-├── EthicalHacking
-└── Reports
-
-
-Part D: File Management
-Create Files
-Bash
-touch notes.txt
-touch commands.txt
-touch report.txt
-Copy Files
-Bash
-cp notes.txt notes_copy.txt
-Move Files
-Bash
-mv report.txt Reports/
-Rename Files
-Bash
-mv commands.txt linux_commands.txt
-Delete Files
-Bash
-rm notes_copy.txt
-What Each Command Does
-Command
-Purpose
-mkdir
-Creates a new directory/folder
-cd
-Changes current directory
-tree
-Shows folder structure
-touch
-Creates empty files
-cp
-Copies files
-mv
-Moves or renames files
-rm
-Deletes files
-Part E: System Information Collection
-Commands:
-Bash
-uname -a
-hostname
-whoami
-date
-uptime
-pwd
-Example Output:
-Bash
-$ uname -a
-Linux kali 6.1.0-kali7-amd64 #1 SMP Debian x86_64 GNU/Linux
-
-$ hostname
-hp-pekdosk
-
-$ whoami
 kali
 
-$ date
-Wed Jun 11 08:45:10 PM IST 2026
+What is UID?
+UID stands for User ID.
+It is a unique number assigned to every user in Linux.
+Example:
+Bash
+uid=1000(kali)
 
-$ uptime
-20:45:10 up 2 hours, 15 minutes, 1 user, load average: 0.10, 0.15, 0.20
+What is GID?
+GID stands for Group ID.
+It identifies the primary group of the user.
+Example:
+Bash
+gid=1000(kali)
 
-$ pwd
-/home/kali
-R
-Part F: Linux Research Activity
-1. What is Linux?
-Linux is an open-source operating system used to manage computer hardware and software. It is widely used in servers, cybersecurity, programming, and networking.
-2. Why is Linux important in Cyber Security?
-Linux is important in cybersecurity because it is secure, stable, and supports many security tools. Ethical hackers and security professionals use Linux for penetration testing, monitoring, and network analysis.
+What information does /etc/passwd contain?
+The /etc/passwd file contains:
+Username
+User ID (UID)
+Group ID (GID)
+Home directory
+Default shell
+Example entry:
+Bash
+kali:x:1000:1000:Kali User:/home/kali:/bin/bash
 
-4. Difference between Linux and Windows
-Linux
-Windows
-Open-source operating system
-Proprietary operating system
-More secure and customizable
-Easy to use for beginners
-Mostly used in servers and cybersecurity
-Mostly used for personal and office work
-Free to use
-Requires license
 
-6. What is a Linux Distribution?
-A Linux distribution is a version of Linux that includes the Linux kernel, software packages, and user interface. Examples are Ubuntu, Kali Linux, Fedora, and Debian.
-7. Why do Ethical Hackers prefer Linux-based operating systems?
-Ethical hackers prefer Linux because it provides powerful command-line tools, bett
+Part B: Create Users & Groups
+Create Groups
+
+sudo groupadd interns
+sudo groupadd cyberteam
+Create Users
+
+sudo useradd -m student1
+sudo useradd -m student2
+sudo useradd -m student3
+Set Passwords
+
+sudo passwd student1
+sudo passwd student2
+sudo passwd student3
+Add Users to Groups
+
+sudo usermod -aG interns student1
+sudo usermod -aG cyberteam student2
+sudo usermod -aG interns,cyberteam student3
+Verify Users & Groups
+Check groups
+groups
+Check user details
+Bash
+id student1
+id student2
+Example Output
+Bash
+uid=1001(student1) gid=1001(student1) groups=1001(student1),1002(interns)
+
+uid=1002(student2) gid=1002(student2) groups=1002(student2),1003(cyberteam)
+Part C: File Ownership
+Commands
+Bash
+mkdir CyberSecurity_Project
+cd CyberSecurity_Project
+
+touch report.txt notes.txt credentials.txt
+Check Ownership
+Bash
+ls -l
+Change Ownership of File
+Bash
+sudo chown user2 report.txt
+Example Output
+Bash
+-rw-r--r-- 1 user1 user1 0 Jun 13 10:00 report.txt
+After changing owner:
+Bash
+-rw-r--r-- 1 user2 user1 0 Jun 13 10:00 report.txt
+Documentation
+Original Owner: user1
+New Owner: user2
+Command Used:
+Bash
+sudo chown user2 report.txt
+
+
+Part D: File Permissions
+Create File
+touch security_policy.txt
+Check Permissions
+
+ls -l
+Modify Permissions
+Read Only
+
+chmod 444 security_policy.txt
+Permission:
+
+-r--r--r--
+Read + Write
+Bash
+chmod 666 security_policy.txt
+Permission:
+
+-rw-rw-rw-
+Read + Write + Execute
+Bash
+chmod 777 security_policy.txt
+Permission:
+
+-rwxrwxrwx
+Example Output
+Bash
+-rw-r--r-- 1 kali kali 0 Jun 13 10:10 security_policy.txt
+
+
+Part E: Permission Analysis
+Permission
+Owner Rights
+Group Rights
+Other User Rights
+Real-world Use Case
+755
+Read, Write, Execute
+Read, Execute
+Read, Execute
+Used for program files and directories where everyone can access but only owner can modify
+644
+Read, Write
+Read
+Read
+Common for text files and documents
+777
+Read, Write, Execute
+Read, Write, Execute
+Read, Write, Execute
+Temporary shared files; not secure for sensitive data
+600
+Read, Write
+No Access
+No Access
+Private files like passwords or SSH keys
+700
+Read, Write, Execute
+
+Personal scripts or private directories
+
+
+Part F: Security Challenge
+File
+Recommended Permission
+Reason
+password_backup.txt
+
+600
+Contains sensitive passwords, only owner should access
+public_notice.txt
+
+644
+Everyone can read the notice but only owner can edit
+system_log.txt
+
+640
+Owner can read/write, group can read for monitoring
+personal_notes.txt
+
+600
+Personal information should stay private
+Explanation
+Sensitive files should have limited access.
+Public files can allow read access to others.
+System logs may need group access for administrators.
+Private notes and passwords must not be accessible to other users.
+
+
+Part G: Linux Security Research
+
+1. Why are file permissions important?
+File permissions protect files from unauthorized access, modification, or deletion. They help maintain system security and privacy.
+
+2. What happens if sensitive files are given 777 permissions?
+Any user can read, modify, or delete the file. This creates major security risks such as data theft or system damage.
+
+3. What is the principle of Least Privilege?
+Users should get only the minimum permissions needed to perform their tasks. This reduces security risks.
+
+4. Why do organizations restrict user access?
+Organizations restrict access to protect confidential data, prevent misuse, reduce cyber attacks, and maintain system stability.
