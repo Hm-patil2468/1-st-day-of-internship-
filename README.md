@@ -198,4 +198,4 @@ Requires license
 6. What is a Linux Distribution?
 A Linux distribution is a version of Linux that includes the Linux kernel, software packages, and user interface. Examples are Ubuntu, Kali Linux, Fedora, and Debian.
 7. Why do Ethical Hackers prefer Linux-based operating systems?
-Ethical hackers prefer Linux because it provides powerful command-line tools, better security, flexibility, and support for cybersecurity tools like Nmap, Wireshark, and Metasploit.
+Ethical hackers prefer Linux because it provides powerful command-line tools, bett
