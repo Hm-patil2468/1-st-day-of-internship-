@@ -1,199 +1,203 @@
+Part A: Process Monitoring
+1. What is a Process?
+A Process is a running instance of a program in Linux.
+Example: browser, terminal, music player, etc.
 
-Part A: Understanding Users
+2. What is a PID?
+PID (Process ID) is a unique number given to every running process by the operating system.
 
-Answers
-What is your current username?
-The current username is the logged-in user shown by:
+3. Which process is consuming the most CPU?
+Use the command:
 Bash
-whoami
-Example output:
+top
+or
 Bash
-kali
+htop
+The process shown at the top with the highest %CPU value is consuming the most CPU.
+Example answer:
+Plain text
+Process: firefox
+CPU Usage: 45%
 
-What is UID?
-UID stands for User ID.
-It is a unique number assigned to every user in Linux.
-Example:
+4. Which process is consuming the most Memory?
+Use:
 Bash
-uid=1000(kali)
-
-What is GID?
-GID stands for Group ID.
-It identifies the primary group of the user.
-Example:
+top
+or
 Bash
-gid=1000(kali)
+htop
+The process with the highest %MEM value is consuming the most memory.
+Example answer:
+Plain text
+Process: chrome
+Memory Usage: 18%
 
-What information does /etc/passwd contain?
-The /etc/passwd file contains:
-Username
-User ID (UID)
-Group ID (GID)
-Home directory
-Default shell
-Example entry:
+Part B: Process Management
+
+Step 1: Start a Process
 Bash
-kali:x:1000:1000:Kali User:/home/kali:/bin/bash
+sleep 300
 
+Step 2: Find the Process
 
-Part B: Create Users & Groups
-Create Groups
+ps aux | grep sleep
+Example Output:
 
-sudo groupadd interns
-sudo groupadd cyberteam
-Create Users
+user   2456  0.0  0.1  sleep 300
+Here:
+Process Name = sleep
+PID = 2456
 
-sudo useradd -m student1
-sudo useradd -m student2
-sudo useradd -m student3
-Set Passwords
-
-sudo passwd student1
-sudo passwd student2
-sudo passwd student3
-Add Users to Groups
-
-sudo usermod -aG interns student1
-sudo usermod -aG cyberteam student2
-sudo usermod -aG interns,cyberteam student3
-Verify Users & Groups
-Check groups
-groups
-Check user details
+Step 3: Terminate the Process
 Bash
-id student1
-id student2
-Example Output
+kill 2456
+If it does not stop, use:
 Bash
-uid=1001(student1) gid=1001(student1) groups=1001(student1),1002(interns)
-
-uid=1002(student2) gid=1002(student2) groups=1002(student2),1003(cyberteam)
-Part C: File Ownership
-Commands
-Bash
-mkdir CyberSecurity_Project
-cd CyberSecurity_Project
-
-touch report.txt notes.txt credentials.txt
-Check Ownership
-Bash
-ls -l
-Change Ownership of File
-Bash
-sudo chown user2 report.txt
-Example Output
-Bash
--rw-r--r-- 1 user1 user1 0 Jun 13 10:00 report.txt
-After changing owner:
-Bash
--rw-r--r-- 1 user2 user1 0 Jun 13 10:00 report.txt
+kill -9 2456
 Documentation
-Original Owner: user1
-New Owner: user2
+PID Found:
+Plain text
+2456
 Command Used:
 Bash
-sudo chown user2 report.txt
+ps aux | grep sleep
+kill 2456
+Result:
+Plain text
+The sleep process was terminated successfully.
 
 
-Part D: File Permissions
-Create File
-touch security_policy.txt
-Check Permissions
-
-ls -l
-Modify Permissions
-Read Only
-
-chmod 444 security_policy.txt
-Permission:
-
--r--r--r--
-Read + Write
+Part C: System Monitoring
+Commands Used
 Bash
-chmod 666 security_policy.txt
-Permission:
-
--rw-rw-rw-
-Read + Write + Execute
-Bash
-chmod 777 security_policy.txt
-Permission:
-
--rwxrwxrwx
-Example Output
-Bash
--rw-r--r-- 1 kali kali 0 Jun 13 10:10 security_policy.txt
-
-
-Part E: Permission Analysis
-Permission
-Owner Rights
-Group Rights
-Other User Rights
-Real-world Use Case
-755
-Read, Write, Execute
-Read, Execute
-Read, Execute
-Used for program files and directories where everyone can access but only owner can modify
-644
-Read, Write
-Read
-Read
-Common for text files and documents
-777
-Read, Write, Execute
-Read, Write, Execute
-Read, Write, Execute
-Temporary shared files; not secure for sensitive data
-600
-Read, Write
-No Access
-No Access
-Private files like passwords or SSH keys
-700
-Read, Write, Execute
-
-Personal scripts or private directories
-
-
-Part F: Security Challenge
-File
-Recommended Permission
-Reason
-password_backup.txt
-
-600
-Contains sensitive passwords, only owner should access
-public_notice.txt
-
-644
-Everyone can read the notice but only owner can edit
-system_log.txt
-
-640
-Owner can read/write, group can read for monitoring
-personal_notes.txt
-
-600
-Personal information should stay private
+free -h
+df -h
+uptime
+uname -a
+System Summary Report
+Total RAM: 4 GB
+Available RAM: 2.5 GB
+Disk Usage: 20 GB used out of 50 GB
+System Uptime: 3 hours 25 minutes
+Kernel Version: Linux 5.15.0-84-generic x86_64
 Explanation
-Sensitive files should have limited access.
-Public files can allow read access to others.
-System logs may need group access for administrators.
-Private notes and passwords must not be accessible to other users.
+free -h → Shows memory usage (RAM).
+df -h → Displays disk space usage.
+uptime → Shows how long the system has been running.
+uname -a → Displays kernel and system information.
+
+Part D: Service Monitoring
+Commands Used
+
+1. What is a Service?
+A service is a background program that runs continuously to perform system tasks such as networking, SSH access, printing, or web hosting.
+
+2. Why are services important?
+Services are important because they help the operating system perform essential functions automatically and keep the system running smoothly.
+
+3. How can a stopped service affect a system?
+If a service stops, related functions may stop working.
+Example:
+If the SSH service stops, remote login will not work.
+If NetworkManager stops, internet/network connection may fail.
+Example Service Status
+SSH Service: Active and running
+NetworkManager Service: Active and running
 
 
-Part G: Linux Security Research
+Part E: Shell Scripting
+Script Name:
+system_report.sh
+Script Code:
+Bash
+#!/bin/bash
 
-1. Why are file permissions important?
-File permissions protect files from unauthorized access, modification, or deletion. They help maintain system security and privacy.
+echo "System Information Report"
+echo "--------------------------"
 
-2. What happens if sensitive files are given 777 permissions?
-Any user can read, modify, or delete the file. This creates major security risks such as data theft or system damage.
+echo "User: diuu
+echo "Hostname: hm-peskdosk
+echo "Date: 12-5-2026
+echo "Current Directory: text
 
-3. What is the principle of Least Privilege?
-Users should get only the minimum permissions needed to perform their tasks. This reduces security risks.
+echo ""
+echo "Memory Usage:"
+free -h
 
-4. Why do organizations restrict user access?
-Organizations restrict access to protect confidential data, prevent misuse, reduce cyber attacks, and maintain system stability.
+echo ""
+echo "Disk Usage:"
+df -h
+Steps to Execute:
+Bash
+nano system_report.sh
+
+
+Bash
+chmod +x system_report.sh
+Run the script:
+Bash
+./system_report.sh
+Example Output:
+Bash
+System Information Report
+--------------------------
+
+Part F: Security Monitoring Challenge
+1. netstat
+Purpose:
+Displays network connections, routing tables, and listening ports.
+Example Command:
+Bash
+netstat -tulnp
+Example Output:
+Bash
+tcp   0   0 0.0.0.0:22   0.0.0.0:*   LISTEN
+Security Use Case:
+Used to detect suspicious open ports and active network connections.
+
+2. ss
+Purpose:
+Shows socket statistics and network connections.
+Example Command:
+Bash
+ss -tuln
+Example Output:
+Bash
+tcp LISTEN 0 128 0.0.0.0:80
+Security Use Case:
+Helps monitor active services and identify unusual connections.
+
+3. who
+Purpose:
+Displays users currently logged into the system.
+Example Command:
+Bash
+who
+Example Output:
+Bash
+student  pts/0  2026-06-13 10:00
+Security Use Case:
+Used to check unauthorized user logins.
+
+4. w
+Purpose:
+Shows logged-in users and their current activities.
+Example Command:
+Bash
+w
+Example Output:
+Bash
+USER   TTY   FROM        LOGIN@   IDLE
+student pts/0 192.168.1.5 10:00   2:00
+Security Use Case:
+Helps administrators monitor user activity and system usage.
+
+5. last
+Purpose:
+Displays login history of users.
+Example Command:
+Bash
+last
+Example Output:
+Bash
+student pts/0 192.168.1.5 Fri Jun 13
